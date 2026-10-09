@@ -20,6 +20,9 @@ dependencies {
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
 
     testImplementation(kotlin("test"))
+
+    implementation("com.formdev:flatlaf:3.7.2")
+    implementation("com.formdev:flatlaf-intellij-themes:3.7.2")
 }
 
 tasks.test {
