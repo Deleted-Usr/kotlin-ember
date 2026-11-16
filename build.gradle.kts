@@ -1,6 +1,9 @@
+import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+
 plugins {
-    id("java")
     kotlin("jvm")
+    kotlin("plugin.compose")
+    id("org.jetbrains.compose")
 }
 
 kotlin {
@@ -12,17 +15,29 @@ version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
+    google()
 }
 
 dependencies {
+    implementation(compose.desktop.currentOs)
+    implementation(compose.material3)
+
     testImplementation(platform("org.junit:junit-bom:6.0.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
-
     testImplementation(kotlin("test"))
+}
 
-    implementation("com.formdev:flatlaf:3.7.2")
-    implementation("com.formdev:flatlaf-intellij-themes:3.7.2")
+compose.desktop {
+    application {
+        mainClass = "com.willclay.forgeember.MainKt"
+
+        nativeDistributions {
+            targetFormats(TargetFormat.Msi, TargetFormat.Dmg, TargetFormat.Deb)
+            packageName = "ForgeEmber"
+            packageVersion = "1.0.0"
+        }
+    }
 }
 
 tasks.test {
